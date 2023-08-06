@@ -3,14 +3,12 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 	
-public class CalculatorServer implements Calculator{
-
-    public CalculatorServer() {}
+public class CalculatorServer {
 	
     public static void main(String args[]) {
 	
 	try {
-	    CalculatorServer obj = new CalculatorServer();
+	    CalculatorImplementation obj = new CalculatorImplementation();
 	    Calculator stub = (Calculator) UnicastRemoteObject.exportObject(obj, 0);
 
 	    // Bind the remote object's stub in the registry
