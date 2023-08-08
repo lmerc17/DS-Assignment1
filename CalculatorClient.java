@@ -18,6 +18,7 @@ public class CalculatorClient {
 			String input;
 			String[] parsedInput;
 			int num;
+			boolean isEmpty;
 
 			//while loop to constantly take in input from the client
 			while(true){
@@ -28,18 +29,32 @@ public class CalculatorClient {
 					num = Integer.parseInt(parsedInput[1]);
 					stub.pushValue(num);
 				}
-				else if(parsedInput[0].equals("min") || parsedInput[0].equals("max") || parsedInput[0].equals("lcm") || parsedInput[0].equals("gcd")){
+				else if(parsedInput.length==1 && (parsedInput[0].equals("min") || parsedInput[0].equals("max") || parsedInput[0].equals("lcm") || parsedInput[0].equals("gcd"))){
 					stub.pushOperation(parsedInput[0]);
 				}
-				else if(parsedInput[0].equals("pop")){
-					System.out.println(stub.pop());
+				else if(parsedInput.length==1 && parsedInput[0].equals("pop")){
+					if(!stub.isEmpty()){
+						System.out.println(stub.pop());
+					}
+					else{
+						System.out.println("Stack is empty, no value to pop");
+					}
 				}
-				else if (parsedInput[0].equals("isEmpty")){
-					stub.isEmpty();
+				else if (parsedInput.length==1 && parsedInput[0].equals("isEmpty")){
+					isEmpty = stub.isEmpty();
+					if(isEmpty == true){
+						System.out.println("true");
+					}
+					else{
+						System.out.println("false");
+					}
 				}
 				else if (parsedInput.length==2 && parsedInput[0].equals("delayPop")){
 					num = Integer.parseInt(parsedInput[1]);
 					System.out.println(stub.delayPop(num));
+				}
+				else if (parsedInput.length==1 && parsedInput[0].equals("exit")){
+					break;
 				}
 				else{
 					System.out.println("Please enter a valid function");
