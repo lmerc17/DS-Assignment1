@@ -33,7 +33,7 @@ public class CalculatorClient {
 
 				//if two inputs have been given and the first one is push
 				if(parsedInput.length==2 && parsedInput[0].equals("push")){
-					try{
+					try{ //try and catch to ensure that a valid integer is being given to parseInt
 						num = Integer.parseInt(parsedInput[1]); //convert the second string to an integer
 						stub.pushValue(num); //call pushValue with that number
 					} catch (NumberFormatException e){
@@ -41,39 +41,45 @@ public class CalculatorClient {
 					}
 				}
 				else if(parsedInput.length==1 && (parsedInput[0].equals("min") || parsedInput[0].equals("max") || parsedInput[0].equals("lcm") || parsedInput[0].equals("gcd"))){
-					stub.pushOperation(parsedInput[0]);
+					//else if an operation has been entered
+					stub.pushOperation(parsedInput[0]); //call pushOperation with the operation given
 				}
-				else if(parsedInput.length==1 && parsedInput[0].equals("pop")){
-					if(!stub.isEmpty()){
-						System.out.println(stub.pop());
+				else if(parsedInput.length==1 && parsedInput[0].equals("pop")){ //else if pop has been entered
+					if(!stub.isEmpty()){ //if stack is not empty
+						System.out.println(stub.pop()); //perform pop operation
 					}
 					else{
-						System.out.println("Stack is empty, no value to pop");
+						System.out.println("Stack is empty, no value to pop"); //print out error message
 					}
 				}
-				else if (parsedInput.length==1 && parsedInput[0].equals("isEmpty")){
+				else if (parsedInput.length==1 && parsedInput[0].equals("isEmpty")){ //else if isEmpty function is called
 					isEmpty = stub.isEmpty();
-					if(isEmpty == true){
-						System.out.println("true");
+					if(isEmpty == true){ //if stack is empty
+						System.out.println("true"); //print true
 					}
 					else{
-						System.out.println("false");
+						System.out.println("false"); //otherwise print false
 					}
 				}
-				else if (parsedInput.length==2 && parsedInput[0].equals("delayPop")){
-					if(!stub.isEmpty()){
-						num = Integer.parseInt(parsedInput[1]);
-						System.out.println(stub.delayPop(num));
+				else if (parsedInput.length==2 && parsedInput[0].equals("delayPop")){ //if delayPop is called
+					if(!stub.isEmpty()){ //if the stack isn't empty, perform operation
+						try{ //try and catch to ensure that a valid integer is being given to parseInt
+							num = Integer.parseInt(parsedInput[1]); //convert second string to intger
+							System.out.println(stub.delayPop(num)); //call delayPop with that int
+						}
+						catch (NumberFormatException e){
+							System.out.println("please enter a valid number");
+						}
 					}
-					else{
+					else{ //if stack is empty, give message
 						System.out.println("Stack is empty, no value to pop");
 					}
 					
 				}
-				else if (parsedInput.length==1 && parsedInput[0].equals("exit")){
+				else if (parsedInput.length==1 && parsedInput[0].equals("exit")){ //if user writes exit, exit the code
 					break;
 				}
-				else{
+				else{ //if no valid function is entered, an error message is given
 					System.out.println("Please enter a valid function");
 				}
 
