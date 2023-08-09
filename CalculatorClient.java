@@ -42,7 +42,12 @@ public class CalculatorClient {
 				}
 				else if(parsedInput.length==1 && (parsedInput[0].equals("min") || parsedInput[0].equals("max") || parsedInput[0].equals("lcm") || parsedInput[0].equals("gcd"))){
 					//else if an operation has been entered
-					stub.pushOperation(parsedInput[0]); //call pushOperation with the operation given
+					if(!stub.isEmpty()){
+						stub.pushOperation(parsedInput[0]); //call pushOperation with the operation given
+					}
+					else{
+						System.out.println("Stack is empty, please add some values");
+					}
 				}
 				else if(parsedInput.length==1 && parsedInput[0].equals("pop")){ //else if pop has been entered
 					if(!stub.isEmpty()){ //if stack is not empty
