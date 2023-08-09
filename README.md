@@ -1,4 +1,5 @@
 Instructions for running a singular client and server:
+
     1. If not done already, compile all .java files using the provided makefile
     2. From there, inside of a terminal window, go to the folder where the .class files are and run the command 'rmiregistry &' to run a rmi registry within that terminal
     3. Then, open another terminal in the same directory (this will be the server terminal), run the command 'java CalculatorServer' and way for the server ready message.
