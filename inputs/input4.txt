@@ -1,0 +1,6 @@
+push 100
+push 202
+push 64
+gcd
+pop
+exit

@@ -1,5 +1,6 @@
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.EmptyStackException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
@@ -42,11 +43,15 @@ public class CalculatorClient {
 				}
 				else if(parsedInput.length==1 && (parsedInput[0].equals("min") || parsedInput[0].equals("max") || parsedInput[0].equals("lcm") || parsedInput[0].equals("gcd"))){
 					//else if an operation has been entered
-					if(!stub.isEmpty()){
-						stub.pushOperation(parsedInput[0]); //call pushOperation with the operation given
-					}
-					else{
-						System.out.println("Stack is empty, please add some values");
+					try{ //try and catch to ensure that there is the proper amount of values on the stack
+						if(!stub.isEmpty()){
+							stub.pushOperation(parsedInput[0]); //call pushOperation with the operation given
+						}
+						else{
+							System.out.println("Stack is empty, please add some values");
+						}
+					} catch (EmptyStackException e){
+						System.out.println("There is only 1 value on the stack, please add some values");
 					}
 				}
 				else if(parsedInput.length==1 && parsedInput[0].equals("pop")){ //else if pop has been entered
@@ -68,12 +73,15 @@ public class CalculatorClient {
 				}
 				else if (parsedInput.length==2 && parsedInput[0].equals("delayPop")){ //if delayPop is called
 					if(!stub.isEmpty()){ //if the stack isn't empty, perform operation
-						try{ //try and catch to ensure that a valid integer is being given to parseInt
+						try{ //try and catch to ensure that a valid integer is being given to parseInt and that there is a value on the stack when delayPop is called
 							num = Integer.parseInt(parsedInput[1]); //convert second string to intger
 							System.out.println(stub.delayPop(num)); //call delayPop with that int
 						}
 						catch (NumberFormatException e){
 							System.out.println("please enter a valid number");
+						}
+						catch (EmptyStackException e){
+							System.out.println("Stack is empty, no value to pop");
 						}
 					}
 					else{ //if stack is empty, give message

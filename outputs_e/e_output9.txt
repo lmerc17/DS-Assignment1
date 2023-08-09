@@ -1,0 +1,2 @@
+There is only 1 value on the stack, please add some values
+Stack is empty, no value to pop
